@@ -11,9 +11,9 @@ function appendItem(response) {
 
         ulColl.append(
             '<li class="collection-item valign-wrapper">' +
-            '<i class="z-depth-1 small material-icons left teal-text" data-action="complete" data-id="' + response[i].task_id + '">done</i> ' +
+            '<i class="small material-icons left teal-text" data-action="complete" data-id="' + response[i].task_id + '">done</i> ' +
             '<strong class="left-align valign left col s10 light" style="">' + response[i].task_title + '</strong> ' +
-            '<i class="small z-depth-1 red-text text-darken-3 right material-icons" data-action="delete" data-id="' + response[i].task_id + '">delete</i></li>'
+            '<i class="small red-text text-darken-3 right material-icons" data-action="delete" data-id="' + response[i].task_id + '">delete</i></li>'
         )
 
     }
