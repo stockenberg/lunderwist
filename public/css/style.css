@@ -10,3 +10,8 @@ i{
 li:hover{
     background: #ccc;
 }
+
+a.button-collapse{
+    position: fixed;
+    top: 0;
+}

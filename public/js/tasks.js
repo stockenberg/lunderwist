@@ -2,14 +2,12 @@
  * Created by workstation on 10.03.17.
  */
 
-var ulColl = $("ul.collection");
-var message = $("input#title")
 
 
 function appendItem(response) {
     for (var i = 0; i < response.length; i++) {
 
-        ulColl.append(
+        $(document).find("ul.collection").append(
             '<li class="collection-item valign-wrapper">' +
             '<i class="small material-icons left teal-text" data-action="complete" data-id="' + response[i].task_id + '">done</i> ' +
             '<strong class="left-align valign left col s10 light" style="">' + response[i].task_title + '</strong> ' +
@@ -26,6 +24,7 @@ function create(message) {
         data: {message: message}
     })
     .done(function (response) {
+        console.log(response);
         read();
     });
 }
@@ -36,9 +35,8 @@ function read() {
         url: "../api.php?p=task&action=read"
     })
     .done(function (response) {
-        ulColl.empty();
+        $(document).find("ul.collection").empty();
         appendItem($.parseJSON(response));
-
     });
 }
 
@@ -64,9 +62,8 @@ function deleteTask(id) {
         });
 }
 
-$(document).ready(function () {
 
-    read();
+$(document).ready(function () {
 
     $("body").on("click", "i", function () {
         switch ($(this).attr("data-action")){
@@ -80,12 +77,12 @@ $(document).ready(function () {
         }
     });
 
-
-    $("#taskForm").submit(function(e){
+    $(document).on("submit", "#taskForm", function (e) {
         e.preventDefault();
-        create(message.val());
-        message.val("");
+        create($(this).find("input#title").val());
+        $(this).find("input#title").val("");
     })
+
 
 
 });

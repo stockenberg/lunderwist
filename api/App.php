@@ -20,7 +20,14 @@ class App
         switch ($this->request["p"]){
 
             case "login":
-
+                $user = new UserItem();
+                $user->setUsername($_POST["username"]);
+                $user->setPassword(md5($_POST["password"]));
+                if(UserController::login($user)){
+                    echo json_encode($_SESSION);
+                }else{
+                    echo 0;
+                }
                 break;
 
             case "user":
@@ -29,6 +36,14 @@ class App
 
             case "task":
                 echo json_encode((new TaskController())->run());
+                break;
+
+            case "check_session":
+                if(!empty($_SESSION)){
+                    echo json_encode($_SESSION);
+                }else{
+                    echo 0;
+                }
                 break;
 
         }

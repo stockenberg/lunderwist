@@ -21,7 +21,7 @@ class UserController implements ControllerInterface
 
         $this->request = array_merge($_GET, $_POST);
 
-        switch ($this->request["update"]){
+        switch ($this->request["update"]) {
 
             case "pw":
                 return $this->changePassword();
@@ -30,17 +30,38 @@ class UserController implements ControllerInterface
             case "username":
                 return $this->changeUsername();
                 break;
-
         }
 
     }
 
-    private function changePassword(\api\UserItem $user = NULL)
+    public static function login(UserItem $user)
+    {
+        $db = Database::getInstance();
+        $sql = "SELECT * FROM users WHERE user_username = :username and user_password = :password";
+        $stmt = $db->prepare($sql);
+        $stmt->execute(
+            array(
+                ":username" => $user->getUsername(),
+                ":password" => $user->getPassword()
+            )
+        );
+
+        $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        if(!empty($res)){
+            $_SESSION["username"] = $res[0]["user_username"];
+            $_SESSION["user_id"] = $res[0]["user_id"];
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private function changePassword(\api\UserItem $user = null)
     {
         // TODO: Implement changePassword() method.
     }
 
-    private function changeUsername(\api\UserItem $user = NULL)
+    private function changeUsername(\api\UserItem $user = null)
     {
         // TODO: Implement changeUsername() method.
     }

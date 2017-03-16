@@ -32,6 +32,7 @@ class TaskController implements ControllerInterface
                 $item = new TaskItem();
                 $item->setTitle($_GET["message"]);
                 $item->setCompleted(0);
+                $item->setUserId($_SESSION["user_id"]);
                 $this->create($item);
                 break;
 
@@ -55,11 +56,12 @@ class TaskController implements ControllerInterface
     private function create(TaskItem $item = null)
     {
         if (!is_null($item)) {
-            $SQL = "INSERT INTO tasks (task_title, task_complete) VALUES (:task_title, :task_complete)";
+            $SQL = "INSERT INTO tasks (task_title, task_complete, task_user_id) VALUES (:task_title, :task_complete, :task_user_id)";
             $stmt = $this->db->prepare($SQL);
             $stmt->execute([
                 ":task_title" => $item->getTitle(),
                 ":task_complete" => $item->getCompleted(),
+                ":task_user_id" => $item->getUserId()
             ]);
         }
     }
@@ -95,9 +97,11 @@ class TaskController implements ControllerInterface
 
 
         } else {
-            $SQL = "SELECT * FROM tasks WHERE task_complete = 0";
+            $SQL = "SELECT * FROM tasks WHERE task_complete = 0 AND task_user_id = :user_id";
             $stmt = $this->db->prepare($SQL);
-            $stmt->execute();
+            $stmt->execute([
+                ":user_id" => $_SESSION["user_id"]
+            ]);
             $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 

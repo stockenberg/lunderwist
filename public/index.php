@@ -16,31 +16,8 @@
 </head>
 <body>
 
-<div class="row">
 
-    <div class="col offset-s2 offset-l2 offset-m2 s8 m8 l8" id="test1">
-        <h3>Lunderwist</h3>
-        <br/><br/>
-        <form action="" id="taskForm">
-
-            <div class="input-field">
-                <input id="title" type="text" class="validate">
-                <label class="active" for="title">Todo:</label>
-            </div>
-
-        </form>
-
-        <div class="s12">
-            <ul class="collection">
-                <li class="collection-item valign-wrapper">
-                    <i class="small material-icons left teal-text">done</i> <strong class="left-align valign left col s10 light" style="">Hallo</strong> <i class="small red-text text-darken-3 right material-icons">delete</i></li>
-            </ul>
-        </div>
-
-    </div>
-
-</div>
-
+<main></main>
 
 
 <ul id="slide-out" class="side-nav">
@@ -65,6 +42,8 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="libs/materialize/js/materialize.min.js"></script>
 <script src="js/tasks.js"></script>
+<script src="js/system.js"></script>
+
 <script>
     $(".button-collapse").sideNav();
 </script>
